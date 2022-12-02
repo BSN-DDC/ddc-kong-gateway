@@ -45,8 +45,8 @@ git clone https://github.com/BSN-DDC/ddc-kong-gateway.git
 ### 项目结构：
 
 ```shell
-[root@localhost bsn]# tree -L 3 ddc-kong/
-ddc-kong/
+[root@localhost bsn]# tree -L 3 ddc-kong-gateway/
+ddc-kong-gateway/
 ├── docker-compose.yaml
 ├── kong
 │   ├── conf
@@ -76,11 +76,11 @@ ddc-kong/
 
 
 
-依次授权ddc-kong/kong 、ddc-kong/ddc-kong-service文件夹可读/写/执行权限，执行：
+依次授权ddc-kong-gateway/kong 、ddc-kong-gateway/ddc-kong-service文件夹可读/写/执行权限，执行：
 
 ```shell
-chmod 777 -R ddc-kong/kong
-chmod 777 -R ddc-kong/ddc-kong-service
+chmod 777 -R ddc-kong-gateway/kong
+chmod 777 -R ddc-kong-gateway/ddc-kong-service
 ```
 
 修改微服务ddc-kong-service/config/config.yaml配置文件：
@@ -209,7 +209,7 @@ upstream名称格式为（全小写）：chainType + ”-“ + chainPort
 
 创建用户并配置Basic Auth授权：
 
-创建的用户名称与密码，需要配置到运维系统中，运维系统请求网关微服务接口时使用。
+创建的用户名称与密码，需要配置到算力中心微服务nacos里的kong-gateway-config.yml文件里，运维系统请求网关微服务接口时使用。
 
 ![image-20221111150227731](./image/consumer1.png)
 
@@ -229,7 +229,7 @@ upstream名称格式为（全小写）：chainType + ”-“ + chainPort
 
 2、对外公开的chainType名称要与upstream名称的第一段名称一致，否则不能正常转发到正确的目标节点
 
-3、网关中创建的consumers中Basic Auth用户名与密码，需要配置到后台运维系统中，否则运维系统不能请求网关微服务接口
+3、网关中创建的consumers中Basic Auth用户名与密码，需要配置到算力中心微服务nacos里的kong-gateway-config.yml文件里，否则运维系统不能请求网关微服务接口
 
 4、为了网关安全性，kong网关相关的管理接口端口未对外开放端口，详见docker-compose文件，kong与konga、微服务之间的通信，通过docker的虚拟网络通信
 

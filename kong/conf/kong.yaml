@@ -7,7 +7,7 @@ consumers:
   username: admin
 services:
 - connect_timeout: 60000
-  host: super-kong-service
+  host: ddc-kong-service
   name: gateway-service
   port: 18899
   protocol: http
