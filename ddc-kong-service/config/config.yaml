@@ -1,0 +1,6 @@
+Redis:
+  redisHost: localhost:6379
+  redisPW: "password"
+  redisDb: 0
+KeySymbol: "ddc"
+ServerPort: 18899
