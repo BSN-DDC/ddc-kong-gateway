@@ -55,13 +55,13 @@ local function get_req_info(conf)
 end
 
 
-local function get_usage(conf, accessKey, current_timestamp, limits)
+local function get_usage(conf, identifier, current_timestamp, limits)
   local usage = {}
   local stop
 
   for period, limit in pairs(limits) do
 
-    local current_usage, err = core.usage(conf, accessKey, period, current_timestamp)
+    local current_usage, err = core.usage(conf, identifier, period, current_timestamp)
     if err then
       return nil, nil, err
     end
@@ -128,7 +128,10 @@ function AccessKeyAuthWithGRPCHandler:access(conf)
     year = conf.year,
   }
 
-  local usage, stop, err = get_usage(conf, accessKey, current_timestamp, limits)
+  local identifier = string.sub(accessKey,1,32)
+  -- kong.log.err("identifier:", identifier)
+
+  local usage, stop, err = get_usage(conf, identifier, current_timestamp, limits)
   if err then
     if not fault_tolerant then
       return error(err)
@@ -143,7 +146,7 @@ function AccessKeyAuthWithGRPCHandler:access(conf)
     end
   end
 
-  local ok, err = timer_at(0, increment, conf, limits, accessKey, current_timestamp, 1)
+  local ok, err = timer_at(0, increment, conf, limits, identifier, current_timestamp, 1)
   if not ok then
     kong.log.err("failed to create timer: ", err)
   end

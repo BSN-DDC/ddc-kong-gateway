@@ -81,7 +81,9 @@ local function get_identifier(conf)
       kong.log.err("uInfo is nil:", tostring(err))
       return nil,nil, err
     end
-    identifier = uInfo["accessKey"]
+    local accessKey = uInfo["accessKey"]
+    identifier = string.sub(accessKey,1,32)
+    -- kong.log.err("identifier:", identifier)
     accessKeyInfo = uInfo
 
   end
