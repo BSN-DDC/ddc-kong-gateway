@@ -66,10 +66,10 @@ ddc-kong-gateway/
 │       ├── access-key-auth-with-grpc
 │       ├── access-key-auth-with-http
 │       └── deck
-└── super-kong-service
+└── ddc-kong-service
     ├── config
     │   └── config.yaml
-    └── super-kong-service
+    └── ddc-kong-service
 
 8 directories, 15 files
 ```
